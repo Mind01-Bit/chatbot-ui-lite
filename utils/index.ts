@@ -18,8 +18,7 @@ export const OpenAIStream = async (messages: Message[]) => {
         {
           role: "system",
           content: `[PASTE_YOUR_FULL_REVISED_MASTER_PROMPT_HERE]`,
-`
-        },
+          },
         ...messages
       ],
       max_tokens: 800,
