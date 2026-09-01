@@ -12,11 +12,13 @@ export const OpenAIStream = async (messages: Message[]) => {
     },
     method: "POST",
     body: JSON.stringify({
-      model: OpenAIModel.DAVINCI_TURBO,
+      model: "gpt-4o-mini",
+
       messages: [
         {
           role: "system",
-          content: `You are a helpful, friendly, assistant.`
+          content: `[PASTE_YOUR_FULL_REVISED_MASTER_PROMPT_HERE]`,
+`
         },
         ...messages
       ],
