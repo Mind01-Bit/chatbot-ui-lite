@@ -17,7 +17,6 @@ export default function Home() {
 
   const handleSend = async (message: Message) => {
     const updatedMessages = [...messages, message];
-
     setMessages(updatedMessages);
     setLoading(true);
 
@@ -37,13 +36,11 @@ export default function Home() {
     }
 
     const data = response.body;
-
     if (!data) {
       return;
     }
 
     setLoading(false);
-
     const reader = data.getReader();
     const decoder = new TextDecoder();
     let done = false;
@@ -58,10 +55,7 @@ export default function Home() {
         isFirst = false;
         setMessages((messages) => [
           ...messages,
-          {
-            role: "assistant",
-            content: chunkValue
-          }
+          { role: "assistant", content: chunkValue }
         ]);
       } else {
         setMessages((messages) => {
@@ -80,7 +74,7 @@ export default function Home() {
     setMessages([
       {
         role: "assistant",
-        content: `Hi there! I'm Chatbot UI, an AI assistant. I can help you with things like answering questions, providing information, and helping with tasks. How can I help you?`
+        content: "Welcome to your clean slate. Before we dive into any career files or strategies, let's take a breath and connect as human beings. May I ask your first name, and what city or region you are calling home from today?"
       }
     ]);
   };
@@ -93,34 +87,32 @@ export default function Home() {
     setMessages([
       {
         role: "assistant",
-        content: `Hi there! I'm Chatbot UI, an AI assistant. I can help you with things like answering questions, providing information, and helping with tasks. How can I help you?`
+        content: "Welcome to your clean slate. Before we dive into any career files or strategies, let's take a breath and connect as human beings. May I ask your first name, and what city or region you are calling home from today?"
       }
     ]);
   }, []);
 
   return (
-     <Head>
+    <>
+      <Head>
         <title>Alighned Path - Digital Sanctuary</title>
-        <meta
-          name="description"
-          content="A private, supportive digital sanctuary designed to help you shed your old professional boxes, uncover your hidden executive strength, and confidently step center-stage into the lead role of your own life story."
-        />
+        <meta name="description" content="A private, supportive digital sanctuary designed to help you shed your old professional boxes, uncover your hidden executive strength, and confidently step center-stage into the lead role of your own life story." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
         <link href="https://googleapis.com" rel="stylesheet" />
-    </Head>
-
+      </Head>
 
       <div className="flex flex-col h-screen">
         <Navbar />
-
+        
         <div className="flex-1 overflow-auto sm:px-10 pb-4 sm:pb-10">
           <div className="max-w-[800px] mx-auto mt-4 sm:mt-12">
-                     <div className="bg-white/50 border border-[#EBE7E0] rounded-2xl p-5 mb-6 text-center max-w-2xl mx-auto shadow-sm backdrop-blur-md">
-            <p class="text-xs text-[#5C574F] leading-relaxed italic" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
-              "A private, supportive digital sanctuary designed to help you shed your old professional boxes, uncover the hidden executive strength you already possess, and confidently step center-stage into the lead role of your own life story—all while fiercely protecting your peace of mind along the way."
-            </p>
-          </div>
+            
+            <div className="bg-white/50 border border-[#EBE7E0] rounded-2xl p-5 mb-6 text-center max-w-2xl mx-auto shadow-sm backdrop-blur-md">
+              <p className="text-xs text-[#5C574F] leading-relaxed italic" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+                "A private, supportive digital sanctuary designed to help you shed your old professional boxes, uncover the hidden executive strength you already possess, and confidently step center-stage into the lead role of your own life story—all while fiercely protecting your peace of mind along the way."
+              </p>
+            </div>
 
             <Chat
               messages={messages}
@@ -131,6 +123,7 @@ export default function Home() {
             <div ref={messagesEndRef} />
           </div>
         </div>
+        
         <Footer />
       </div>
     </>
