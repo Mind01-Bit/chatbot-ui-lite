@@ -1,4 +1,10 @@
-import { Chat } from "@/components/Chat/Chat";import { Footer } from "@/components/Layout/Footer";import { Navbar } from "@/components/Layout/Navbar";import { Message } from "@/types";import Head from "next/head";import { useEffect, useRef, useState } from "react";
+import { Chat } from "@/components/Chat/Chat";
+import { Footer } from "@/components/Layout/Footer";
+import { Navbar } from "@/components/Layout/Navbar";
+import { Message } from "@/types";
+import Head from "next/head";
+import { useEffect, useRef, useState } from "react";
+
 export default function Home() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
@@ -94,6 +100,7 @@ export default function Home() {
               </div>
             ) : (
               <>
+                {/* Left Column Control Center */}
                 <section className="w-full md:w-80 flex flex-col gap-4 flex-shrink-0 h-auto md:h-full">
                   <div className="bg-white/40 border border-[#EBE7E0] rounded-2xl p-4 shadow-sm backdrop-blur-md hidden md:flex flex-col gap-1.5">
                     <span className="text-[10px] uppercase tracking-widest font-semibold text-[#607264] mb-2" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>Workspace Navigation</span>
@@ -106,6 +113,7 @@ export default function Home() {
                   </div>
                 </section>
 
+                {/* Right Main Workspace Console */}
                 <section className="flex-1 flex flex-col bg-white/50 border border-[#EBE7E0] rounded-3xl overflow-hidden shadow-sm backdrop-blur-md h-full">
                   <div className="flex md:hidden border-b border-[#EBE7E0] bg-white/50 overflow-x-auto">
                     <button onClick={() => setActiveTab("chat")} className={`px-4 py-3 text-[10px] font-bold uppercase whitespace-nowrap ${activeTab === "chat" ? "text-[#607264] border-b-2 border-[#607264]" : "text-[#7A756B]"}`}>Chat</button>
@@ -131,66 +139,60 @@ export default function Home() {
                           <div className="flex flex-col bg-white/40 p-5 rounded-2xl border border-[#EBE7E0]">
                             <span className="text-[10px] uppercase tracking-widest font-semibold text-[#A34A4A] mb-3">Old Frontier Profile</span>
 
-{oldResume}
+                            {oldResume}
+                            
+                            Reframed Master Profile
+                            {revisedResume}
+                            
+                            )}
+                            
+                            {activeTab === "matches" && (
+
+                            Aligned Job Title Architecture
+                            Your Top High-Value Target Fits
+                            Based on your deep operational history, your capabilities have been translated into
+                            these top corporate paths to protect you from algorithmic application spam.
+
+                            1. Operations Management DirectorLeverages your 12+ years of high-volume logistics handling, scheduling coordination, and crisis mitigation.
+                            2. Customer Success Strategic Account LeadMaps directly to your extensive tenure managing critical escalation resolution and protecting account revenue retention.
+                            3. Corporate Training & Onboarding LeadBuilt upon your documented history of informally pairing with, mentoring, and scaling junior operational personnel.
 
 
-Reframed Master Profile
-{revisedResume}
+                            )}
+                            {activeTab === "optimizer" && (
+                        
+                            Backstage Design Studio
+                            Algorithm & Recruiter Magnets
+
+                           "LinkedIn Premium Anchor”
+                            “Headline Blueprint: Operations Specialist | Scaling Revenue Protection | Cross-Functional Workflows”
+                            Copy Copy-Ready Template
+                            
+                            “Indeed Filter Optimizer”
+                            Structured background metrics formatted perfectly to catch automated 
+                            agency recruiter sorting blocks.
+                            Copy Verified Profile Content
 
 
+                            }}
 
-)}
-{activeTab === "matches" && (
+                            {activeTab === "local" && (
 
-
-Aligned Job Title Architecture
-Your Top High-Value Target Fits
-Based on your deep operational history, your capabilities have been translated into these top corporate paths to protect you from algorithmic application spam.
-
-1. Operations Management DirectorLeverages your 12+ years of high-volume logistics handling, scheduling coordination, and crisis mitigation.
-2. Customer Success Strategic Account LeadMaps directly to your extensive tenure managing critical escalation resolution and protecting account revenue retention.
-3. Corporate Training & Onboarding LeadBuilt upon your documented history of informally pairing with, mentoring, and scaling junior operational personnel.
+                            Zip Code Scouting Portal
+                            Local Small Business Micro-Possibilities
 
 
-
-)}
-{activeTab === "optimizer" && (
+                            <input type="text" placeholder="Enter target Zip Code..." value={zipCode} onChange={(e) => setZipCode(e.target.value)} className="bg-white border border-[#EBE7E0] rounded-xl px-4                               py-2 text-sm focus:outline-none focus:ring-1 focus:ring-[#607264]" />Map Opportunities
 
 
-Backstage Design Studio
-Algorithm & Recruiter Magnets
-
-“LinkedIn Premium Anchor”
-“Headline Blueprint: Operations Specialist | Scaling Revenue Protection | Cross-Functional Workflows”
-Copy Copy-Ready Template
+                            [Interactive local mapping engine layout will populate scouting anchors here for Zip Code {zipCode || "XXXXX"}...]
 
 
-“Indeed Filter Optimizer”
-Structured background metrics formatted perfectly to catch automated agency recruiter sorting blocks.
-Copy Verified Profile Content
+                            ]]
 
+                          </>
+                          );
+                          }
 
-
-)}
-{activeTab === "local" && (
-
-
-Zip Code Scouting Portal
-Local Small Business Micro-Possibilities
-
-<input type="text" placeholder="Enter target Zip Code..." value={zipCode} onChange={(e) => setZipCode(e.target.value)} className="bg-white border border-[#EBE7E0] rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-[#607264]" />
-Map Opportunities
-
-
-[Interactive local mapping engine layout will populate scouting anchors here for Zip Code {zipCode || "XXXXX"}...]
-
-
-
-)}
-
-
-</>
-)}
-</>
-);
-}
+                          
+                            
