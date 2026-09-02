@@ -21,7 +21,6 @@ export default function Home() {
   const handleSend = async (message: Message) => {
     const updatedMessages = [...messages, message];
     setMessages(updatedMessages);
-    loading;
     setLoading(true);
 
     const response = await fetch("/api/chat", {
