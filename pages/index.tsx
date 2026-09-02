@@ -9,11 +9,17 @@ export default function Home() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [hasStarted, setHasStarted] = useState<boolean>(false);
-  const [activeTab, setActiveTab] = useState<"chat" | "resume" | "matches" | "optimizer" | "local">("chat");
+  const [activeTab, setActiveTab] = useState<"chat" | "resume" | "matches" | "optimizer" | "local" | "analytics">("chat");
 
+  // User Interactive Workspace Variables
   const [oldResume, setOldResume] = useState<string>("[Past Frontier text will appear here once pasted in chat...]");
   const [revisedResume, setRevisedResume] = useState<string>("[Your beautifully translated Master Resume will generate here...]");
   const [zipCode, setZipCode] = useState<string>("");
+
+  // Live Sandbox Session Tracking Metrics
+  const [pauseCount, setPauseCount] = useState<number>(0);
+  const [sessionStartTime, setSessionStartTime] = useState<number>(0);
+  const [elapsedTime, setElapsedTime] = useState<number>(0);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const scrollToBottom = () => { messagesEndRef.current?.scrollIntoView({ behavior: "smooth" }); };
@@ -69,7 +75,18 @@ export default function Home() {
   };
 
   useEffect(() => { scrollToBottom(); }, [messages]);
-  useEffect(() => { handleReset(); }, []);
+  
+  useEffect(() => { 
+    handleReset(); 
+    setSessionStartTime(Date.now());
+    
+    const interval = setInterval(() => {
+      if (sessionStartTime > 0) {
+        setElapsedTime(Math.floor((Date.now() - sessionStartTime) / 1000));
+      }
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [hasStarted]);
 
   return (
     <>
@@ -109,24 +126,21 @@ export default function Home() {
                     <button onClick={() => setActiveTab("matches")} className={`w-full text-left px-4 py-2.5 rounded-xl text-xs font-semibold uppercase tracking-wider transition-all duration-200 ${activeTab === "matches" ? "bg-[#607264] text-white" : "hover:bg-white text-[#5C574F]"}`}>🎯 Top 3-5 Job Titles</button>
                     <button onClick={() => setActiveTab("optimizer")} className={`w-full text-left px-4 py-2.5 rounded-xl text-xs font-semibold uppercase tracking-wider transition-all duration-200 ${activeTab === "optimizer" ? "bg-[#607264] text-white" : "hover:bg-white text-[#5C574F]"}`}>⚡ LinkedIn & Indeed Studio</button>
                     <button onClick={() => setActiveTab("local")} className={`w-full text-left px-4 py-2.5 rounded-xl text-xs font-semibold uppercase tracking-wider transition-all duration-200 ${activeTab === "local" ? "bg-[#607264] text-white" : "hover:bg-white text-[#5C574F]"}`}>📍 Local Small Business</button>
+                    <button onClick={() => setActiveTab("analytics")} className={`w-full text-left px-4 py-2.5 rounded-xl text-xs font-semibold uppercase tracking-wider transition-all duration-200 ${activeTab === "analytics" ? "bg-[#A34A4A] text-white" : "hover:bg-white text-[#A34A4A]"}`}>📊 Analytics Hub</button>
                   </div>
                 </section>
 
                 <section className="flex-1 flex flex-col bg-white/50 border border-[#EBE7E0] rounded-3xl overflow-hidden shadow-sm backdrop-blur-md h-full">
-                  <div className="flex md:hidden border-b border-[#EBE7E0] bg-white/50 overflow-x-auto">
-                    <button onClick={() => setActiveTab("chat")} className={`px-4 py-3 text-[10px] font-bold uppercase whitespace-nowrap ${activeTab === "chat" ? "text-[#607264] border-b-2 border-[#607264]" : "text-[#7A756B]"}`}>Chat</button>
-                    <button onClick={() => setActiveTab("resume")} className={`px-4 py-3 text-[10px] font-bold uppercase whitespace-nowrap ${activeTab === "resume" ? "text-[#607264] border-b-2 border-[#607264]" : "text-[#7A756B]"}`}>Resume</button>
-                    <button onClick={() => setActiveTab("matches")} className={`px-4 py-3 text-[10px] font-bold uppercase whitespace-nowrap ${activeTab === "matches" ? "text-[#607264] border-b-2 border-[#607264]" : "text-[#7A756B]"}`}>Titles</button>
-                    <button onClick={() => setActiveTab("optimizer")} className={`px-4 py-3 text-[10px] font-bold uppercase whitespace-nowrap ${activeTab === "optimizer" ? "text-[#607264] border-b-2 border-[#607264]" : "text-[#7A756B]"}`}>Social</button>
-                    <button onClick={() => setActiveTab("local")} className={`px-4 py-3 text-[10px] font-bold uppercase whitespace-nowrap ${activeTab === "local" ? "text-[#607264] border-b-2 border-[#607264]" : "text-[#7A756B]"}`}>Local</button>
-                  </div>
-
                   <div className="flex-1 overflow-hidden flex flex-col relative h-full">
+                    
                     {activeTab === "chat" && (
                       <div className="flex-1 flex flex-col h-full overflow-hidden">
                         <div className="flex-1 overflow-auto p-4 md:p-6 custom-scrollbar">
                           <Chat messages={messages} loading={loading} onSend={handleSend} onReset={handleReset} />
                           <div ref={messagesEndRef} />
+                        </div>
+                        <div className="p-3 bg-white/30 border-t border-[#EBE7E0] text-center">
+                          <button onClick={() => setPauseCount(prev => prev + 1)} className="text-[10px] uppercase font-bold tracking-widest text-[#A34A4A] bg-[#F9ECEC] px-4 py-2 rounded-full hover:bg-[#F2D7D7]">🛑 Trigger Subconscious Calibration Pause</button>
                         </div>
                       </div>
                     )}
@@ -136,3 +150,8 @@ export default function Home() {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 h-full">
                           <div className="flex flex-col bg-white/40 p-5 rounded-2xl border border-[#EBE7E0]">
                             <span className="text-[10px] uppercase tracking-widest font-semibold text-[#A34A4A] mb-3">Old Frontier Profile</span>
+                            <div className="flex-1 text-xs text-[#5C574F] font-mono leading-relaxed bg-[#FBF9F6] p-4 rounded-xl border border-[#EBE7E0]/60 whitespace-pre-wrap select-all">{oldResume}</div>
+                          </div>
+
+
+                          
