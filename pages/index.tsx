@@ -81,15 +81,24 @@ export default function Home() {
       {
         role: "assistant",
         content: `Hi there! I'm Chatbot UI, an AI assistant. I can help you with things like answering questions, providing information, and helping with tasks. How can I help you?`
-      }
-    ]);
+          
+  useEffect(() => {
+  let interval: NodeJS.Timeout;
+
+  if (hasStarted && sessionStartTime > 0) {
+    interval = setInterval(() => {
+      setElapsedTime(
+        Math.floor((Date.now() - sessionStartTime) / 1000)
+      );
+    }, 1000);
+  }
+
+  return () => {
+    if (interval) {
+      clearInterval(interval);
+    }
   };
-
-  useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
-
-  useEffect(() => {
+}, [hasStarted, sessionStartTime]);
     setMessages([
       {
         role: "assistant",
