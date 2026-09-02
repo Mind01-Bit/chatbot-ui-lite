@@ -100,7 +100,6 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
         <link href="https://googleapis.com" rel="stylesheet" />
-
       </Head>
 
       <div className="flex flex-col h-screen">
@@ -111,7 +110,7 @@ export default function Home() {
             
             <div className="bg-white/50 border border-[#EBE7E0] rounded-2xl p-5 mb-6 text-center max-w-2xl mx-auto shadow-sm backdrop-blur-md">
               <p className="text-xs text-[#5C574F] leading-relaxed italic" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
-                "A private, supportive digital sanctuary designed to help you shed your old professional boxes, uncover the hidden executive strength you already possess, and confidently step center-stage into the lead role of your own life story—all while fiercely protecting your peace of mind along the way."
+                &ldquo;A private, supportive digital sanctuary designed to help you shed your old professional boxes, uncover the hidden executive strength you already possess, and confidently step center-stage into the lead role of your own life story—all while fiercely protecting your peace of mind along the way.&rdquo;
               </p>
             </div>
 
