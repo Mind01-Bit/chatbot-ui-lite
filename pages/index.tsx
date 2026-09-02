@@ -194,20 +194,3 @@ Map Opportunities
 </>
 );
 }
-
-
----
-
-### 🚀 Commit and Trigger the Live Build
-
-1. Paste this block directly into your empty `index.tsx` space on GitHub.
-2. Scroll to the bottom and click the green **Commit changes** button.
-3. Switch back to your Vercel tab, and it will compile flawlessly. 
-
-<FollowUp>
-Let me know when the build finishes. Once it's live, we can proceed with:
-* Setting up the backend logic so the **chat automatically updates these tabs** based on what the user types.
-* Customizing the **Navbar layout or styling** to match the new minimalist architecture.
-</FollowUp>
-
-
